@@ -7,16 +7,11 @@ class Commands(Tasks):
 
 
     def __str__(self) -> str:  # в строчном представлении выводит инфо о командах
-        return ''' --lt  -  просмотреть созданные задачи\n --adt  -  добавление задачи\n --up  -  обновление статуса задачи
- --inf  -  информация о доступных командах\n --ex  -  выход из программы'''
+        return ''' --ex  -  выход из программы\n --adt  -  добавление задачи\n --up  -  обновление статуса задачи
+ --lt  -  просмотреть созданные задачи\n --dl  -  удаляет задачу\n --inf  -  информация о доступных командах'''
 
 
-    def lt(self):  # команда lt(просмотр созданных задач)
-        id = input('Введите id: ')  # запрашиваем id
-        if id.isdigit() and 0 < int(id) <= self.count_tusk():  # если в диапозоне
-            id = int(id)
-        else:  # если введен id не целое число или не вдиапозоне, то будем выводить весь список
-            id = False
+    def lt(self, id=False):  # команда lt(просмотр созданных задач)       
         print(self.list_tasks(id))  # выводим на экран список
 
 
@@ -42,7 +37,7 @@ class Commands(Tasks):
             if  0 < int(id) <= self.count_tusk():
                 break
             else:  # если неудовлетворяет по кругу 
-                print('id должен быть целым числом и находится в списке')
+                print('id должен быть целым числом и находиться в диапозоне')
                 continue
 
         status = input('Введите новый статус задачи: ')  # ввод нового статуса
@@ -52,10 +47,29 @@ class Commands(Tasks):
         except:
             print('Что-то пошло не так')
 
+        
+    def dl(self):  # команда удаления задачи
+        print()
+        print(self.list_tasks(), '\n')  # выводим список задач, что-бы посмотреть номер
+
+        while True:
+            id = input('Введите номер задачи: ')
+            if 0 < int(id) <= self.count_tusk():
+                break
+            else:
+                print('id должен быть целым числом и находиться в диапозоне')
+                continue
+
+        self.dellitter(int(id))
+        print('Задача удален.\n')
+
 
         
         
-
+t = Commands()
+t.connecter()
+t.lt(3)
+t.disconnecter()
 
 
 

@@ -19,13 +19,14 @@ class Tasks():
         self.curs.execute('''CREATE TABLE IF NOT EXISTS tasks(
                     id INTEGER PRIMARY KEY,
                     info TEXT NOT NULL,
-                    status TEXT DEFAULT 'пока нет'
+                    status TEXT DEFAULT 'пока нет',
+                    date TEXT
         ) ''')
         self.con.commit()
 
 
     def adder_tusk(self, task: str, status='пока нет статуса') -> None:  # добавления задачи
-        self.curs.execute('INSERT INTO tasks(info, status) VALUES (?, ?)', (task, status))
+        self.curs.execute('INSERT INTO tasks(info, status, date) VALUES (?, ?, DATE())', (task, status))
         self.con.commit()
 
 
@@ -50,7 +51,7 @@ class Tasks():
                               FROM tasks''')     
             ret = []            
             for el in self.curs.fetchall():
-                ret.append(f'{el[0]}) {el[1]}; статус: {el[2]}')
+                ret.append(f'{el[0]}) {el[1]}; статус: {el[2]};  дата создания задачи: {el[3]}')
             return '\n'.join(ret)        
 
     
@@ -60,6 +61,14 @@ class Tasks():
         res = self.curs.fetchall()
         return len(res)
     
+
+    def dellitter(self, id: int) -> None:  # удаляет задачу
+        self.curs.execute('''DELETE FROM tasks
+                          WHERE id=?''', (id, ))
+        self.con.commit()
+
+
+  
 
 
 
