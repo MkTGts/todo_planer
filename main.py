@@ -17,7 +17,7 @@ while True:
             print('Выход')
             break
 
-        elif c == 'inf':
+        elif c == 'inf' or c == 'шта':
             print(cmnd)
             continue
 

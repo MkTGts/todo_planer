@@ -13,7 +13,7 @@ class Commands(Tasks):
 
     def lt(self):  # команда lt(просмотр созданных задач)
         id = input('Введите id: ')  # запрашиваем id
-        if 0 < int(id) <= self.count_tusk():  # если в диапозоне
+        if id.isdigit() and 0 < int(id) <= self.count_tusk():  # если в диапозоне
             id = int(id)
         else:  # если введен id не целое число или не вдиапозоне, то будем выводить весь список
             id = False

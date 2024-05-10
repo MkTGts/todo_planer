@@ -61,10 +61,7 @@ class Tasks():
         return len(res)
     
 
-t1 = Tasks()
-t1.connecter()
-print(t1.count_tusk())
-t1.disconnecter()
+
 
     
     
